@@ -1,0 +1,17 @@
+# Maze width 
+WIDTH=10
+
+# Maze height
+HEIGHT=10
+
+# Entry coordinates (inside the maze and != 42 pattern)
+ENTRY=1,1
+
+# Exit coordinates (inside the maze and != 42 pattern)
+EXIT=7,9
+
+# Output file name
+OUTPUT_FILE=maze.txt
+
+# Boolean value show the maze perfect or not
+PERFECT=True
