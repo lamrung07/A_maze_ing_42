@@ -18,8 +18,8 @@ DIRECTIONS = {
         }
 
 PATH_PARSER = {
-            1: 'N',
-            2: 'E',
-            4: 'S',
-            8: 'W'
+            NORTH: 1,
+            SOUTH: 2,
+            EAST: 4,
+            WEST: 8
         }
