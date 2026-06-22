@@ -19,8 +19,8 @@ class ConfigParser:
                 'PERFECT':      None,
         }
 
-    '''Get config file data and save config'''
     def parse_config(self) -> None:
+        """Get config file data and save config"""
 
         # Parsing raw data from config file
         try:
@@ -55,9 +55,8 @@ class ConfigParser:
             sys.exit(1)
 
 
-    '''Validate and casting config data'''
     def check_valid_data(self) -> None:
-
+        """Validate and casting config data"""
         # 1.Check dimension values
         try:
             key, val = "WIDTH", self.config["WIDTH"]
@@ -115,10 +114,10 @@ class ConfigParser:
                     elif val == "False" or "0":
                         self.config[key] = False
     
-    '''Get maze config data'''
     def get_value(
         self,
         data_name: str
         ) -> int | str | dict[str, int] | None:
+        """Get maze config data"""
         return self.config.get(data_name)
 
