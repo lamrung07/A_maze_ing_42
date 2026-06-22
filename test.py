@@ -1,7 +1,5 @@
 from config_parser import ConfigParser
 
-
-
 Maze_config = ConfigParser("config.txt")
 Maze_config.parse_config()
 Maze_config.check_valid_data()
