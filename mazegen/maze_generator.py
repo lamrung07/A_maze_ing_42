@@ -100,14 +100,13 @@ class MazeGenerator:
             if not moved:
                 stack.pop()
 
-
-    def print_grid(self):
-        for row in self.grid:
-            print(''.join(format(c, 'X') for c in row))
+    def get_maze(self) -> list[int]:
+        self.recursive_backtracking()
+        return self.grid
 
 
 if __name__ == "__main__":
-    Maze = MazeGenerator(10, 10)
-    Maze.recursive_backtracking()
-    Maze.print_grid()
+    Maze = MazeGenerator(20, 20).get_maze()
+    for row in Maze:
+            print(''.join(format(c, 'X') for c in row))
 
