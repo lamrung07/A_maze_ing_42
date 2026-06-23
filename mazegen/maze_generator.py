@@ -106,7 +106,7 @@ class MazeGenerator:
 
 
 if __name__ == "__main__":
-    Maze = MazeGenerator(20, 20).get_maze()
+    Maze = MazeGenerator(10, 10).get_maze()
     for row in Maze:
             print(''.join(format(c, 'X') for c in row))
 

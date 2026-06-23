@@ -15,7 +15,7 @@ DIRECTIONS = [
 
 # Direction to open wall [direction, d_x, d_y, current_wall]
 OPEN_DIRS = [
-            ("N", 0, -1, 1),
+            ("N", 0, -1, 1), 
             ("E", 1, 0, 2),
             ("S", 0, 1, 4),
             ("W", -1, 0, 8)
