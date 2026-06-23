@@ -2,14 +2,13 @@
 from maze_generator import MazeGenerator
 from collections import deque
 from constance import OPEN_DIRS
-
 class MazeSolver:
     def __init__(
         self,
-        width: int = 15,
-        height: int = 15,
+        width: int = 10,
+        height: int = 10,
         entry = (0, 0),
-        exit = (14, 14)
+        exit = (9, 9)
         ) -> None:
         self.maze = MazeGenerator(width,height).get_maze()
         self.entry = entry
