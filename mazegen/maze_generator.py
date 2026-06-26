@@ -26,7 +26,7 @@ class MazeGenerator:
         self.seed = seed
         self.grid = [[15] * self.width for _ in range(self.height)]
         self.visited = [[False] * self.width for _ in range(self.height)]
-        self.solution_path: str = ""
+        self.solution_path: list[str] = []
 
     def set_pattern(self) -> set[tuple[int, int]]:
         """

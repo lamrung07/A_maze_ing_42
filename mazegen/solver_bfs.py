@@ -2,7 +2,9 @@
 from maze_generator import MazeGenerator
 from collections import deque
 from constance import OPEN_DIRS
-class MazeSolver:
+
+
+class MazeSolverBFS:
     def __init__(
         self,
         width: int = 10,
@@ -15,9 +17,13 @@ class MazeSolver:
         self.exit = exit
         self.width = width
         self.height = height
-        self.solution_path: str = ""
+        self.solution_path: list[str] = []
     
     def solver_bfs(self):
+        """
+        Add path contain 'N','E','S','W' to self.solution_path
+        which represent the shortest path from entry to exit
+        """
         entry_x, entry_y = self.entry
         exit_x, exit_y = self.exit
         queue = deque()
@@ -40,13 +46,15 @@ class MazeSolver:
                 current_val = self.maze[current_y][current_x]
                 neighbor_x = current_x + d_x
                 neighbor_y = current_y + d_y
+
+                # Ingest neighbor cell if there is no wall
                 if (current_val & cur == 0
                 and (neighbor_x, neighbor_y) not in visited):
                     queue.append((path + dir, neighbor_x, neighbor_y))
                     visited.add((neighbor_x, neighbor_y))
 
 if __name__ == "__main__":
-    Maze = MazeSolver()
+    Maze = MazeSolverBFS()
     Maze.solver_bfs()
     for row in Maze.maze:
             print(''.join(format(c, 'X') for c in row))

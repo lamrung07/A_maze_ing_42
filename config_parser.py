@@ -50,6 +50,7 @@ class ConfigParser:
 
         except OSError as e:
             print (f"OS ERROR! {e}")
+            sys.exit(1)
         except Exception as e:
             print(f"ERROR! {e}")
             sys.exit(1)
@@ -71,6 +72,7 @@ class ConfigParser:
             self.config[key] = int(val)
         except ValueError as e:
                 print(f"ERROR! {e}")
+                sys.exit(1)
             
         # 2.Check ENTRY AND EXIT values
         try:
@@ -87,24 +89,29 @@ class ConfigParser:
             x, y = int(coordinates[0]), int(coordinates[1])
             if x < 0 or x >= width:
                 print("ERROR! Invalid ENTRY input")
+                sys.exit(1)
             if y < 0 or y >= height:
                 print("ERROR! Invalid ENTRY input")
+                sys.exit(1)
             self.config[key] = (int(x), int(y))
                     
             # Check EXIT value
             key, val = "EXIT", self.config["EXIT"]
             coordinates = val.split(',')
             if len(coordinates) != 2:
-                print("ERROR! Invalid EEXIT input")
+                print("ERROR! Invalid EXIT input")
                 sys.exit(1)
             x, y = int(coordinates[0]), int(coordinates[1])
             if x < 0 or x >= width:
                 print("ERROR! Invalid EXIT input")
+                sys.exit(1)
             if y < 0 or y >= height:
                 print("ERROR! Invalid EXIT input")
+                sys.exit(1)
             self.config[key] = (int(x), int(y))
         except ValueError as e:
             print(f"ERROR! {e}")
+            sys.exit(1)
 
             # 3. Check PERFECT bool value
             for key, val in self.config.items():
