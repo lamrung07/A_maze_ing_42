@@ -18,6 +18,12 @@ class MazeSolverA_star:
         self.width = width
         self.height = height
         self.solution_path: str = ""
+    def find_direction(self, current: set[int, int], previous: set[int, int]) -> str:
+        pre_directions = A_STAR_DIRS
+        n_x = current[0] - previous[0]
+        n_y = current[1] - previous[1]
+        move = pre_directions[(n_x, n_y)]
+        return move
 
     def solver_a_star(self):
         """
@@ -36,7 +42,6 @@ class MazeSolverA_star:
         g_cost = {entry: 0}
         came_from = {}
         directions = OPEN_DIRS
-        pre_directions = A_STAR_DIRS
         visited: set[tuple[int, int]] = set()
         visited.add((entry_x, entry_y))
 
@@ -48,12 +53,9 @@ class MazeSolverA_star:
                 path = []
                 while current in came_from:
                     previous = came_from[current]
-                    n_x = current[0] - previous[0]
-                    n_y = current[1] - previous[1]
-                    move = pre_directions[(n_x, n_y)]
+                    move = self.find_direction(current, previous)
                     path.append(move)
                     current = previous
-                # path.append(entry)
                 return path[::-1]
 
             # Check all open neighbor of current cell
@@ -74,4 +76,8 @@ class MazeSolverA_star:
 
 if __name__ == "__main__":
     solver = MazeSolverA_star()
+    for row in solver.maze:
+        for cell in row:
+            print(f"{ cell }", end="")
+        print()
     print(solver.solver_a_star())
