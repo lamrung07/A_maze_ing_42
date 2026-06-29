@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from maze_generator import MazeGenerator
 from collections import deque
-from constance import OPEN_DIRS
+from constance import A_STAR_DIRS, OPEN_DIRS
 
 class MazeSolverA_star:
     def __init__(
@@ -29,14 +29,16 @@ class MazeSolverA_star:
         entry = (entry_x, entry_y)
         exit = (exit_x, exit_y)
         def h(current: set[int, int] , target: set[int, int]) -> int:
-            """Caculate Manhattan distance from current to target node"""
+            """Calculate Manhattan distance from current to target node"""
             return abs(current[0] - target[0]) + abs(current[1] - target[1])
         # open_list: a list of (f, g, position)
-        open_list: list[int, int, set[int, int]] = [h(entry, exit), 0, entry]
+        open_list: list[int, int, set[int, int]] = [(h(entry, exit), 0, entry)]
         g_cost = {entry: 0}
         came_from = {}
         directions = OPEN_DIRS
-        visited: set[tuple[int, int]] = {(entry_x, entry_y)}
+        pre_directions = A_STAR_DIRS
+        visited: set[tuple[int, int]] = set()
+        visited.add((entry_x, entry_y))
 
         while open_list:
             f, g, current = min(open_list, key=lambda x: x[0])
@@ -45,9 +47,13 @@ class MazeSolverA_star:
             if current == exit:
                 path = []
                 while current in came_from:
-                    path.append(current)
-                    current = came_from[current]
-                path.append(entry)
+                    previous = came_from[current]
+                    n_x = current[0] - previous[0]
+                    n_y = current[1] - previous[1]
+                    move = pre_directions[(n_x, n_y)]
+                    path.append(move)
+                    current = previous
+                # path.append(entry)
                 return path[::-1]
 
             # Check all open neighbor of current cell
@@ -63,5 +69,9 @@ class MazeSolverA_star:
                     if new_g < g_cost.get(neighbor, float('inf')):
                         g_cost[neighbor] = new_g
                         came_from[neighbor] = current
-                        f = new_g + h(neighbor, end)
+                        f = new_g + h(neighbor, exit)
                         open_list.append((f, new_g, neighbor))
+
+if __name__ == "__main__":
+    solver = MazeSolverA_star()
+    print(solver.solver_a_star())

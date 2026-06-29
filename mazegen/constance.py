@@ -21,6 +21,13 @@ OPEN_DIRS = [
             ("W", -1, 0, 8)
         ]
 
+A_STAR_DIRS = {
+            (0, -1): "N",
+            (1, 0) : "E",
+            (0, 1) : "S",
+            (-1, 0): "W"
+        }
+
 # 42 defaults pattern
 PATTERN = [
             "         ",
