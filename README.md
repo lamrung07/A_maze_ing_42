@@ -42,7 +42,6 @@ python3 a_maze_ing.py config.txt
 
 ```bash
 make clean    # Remove temporary files or caches
-make re       # Full recompile
 ```
 
 ---
@@ -121,7 +120,6 @@ Alternatives considered: Prim's algorithm (more uniform, less winding) and Krusk
 - Day 4–5: Graphical display (stretch goal)
 - Day 6–7: Testing, edge cases, README
 
-**How it evolved**
 
 ### What worked well
 

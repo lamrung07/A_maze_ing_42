@@ -7,4 +7,13 @@ run:
 debug:
 	python3 -m pdb a_maze_ing.py default_config.txt
 
+clean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type d -name ".mypy_cache" -exec rm -rf {} +
+
+lint:
+	flake8 . --exclude=.venv,.env
+	mypy . --exclude=.venv,.env --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+
+
 .PHONY: build install run debug clean lint
