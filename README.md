@@ -29,19 +29,30 @@ The program takes a configuration file as input, generates a maze according to t
 
 ```bash
 make install  # Install project dependencies 
-make run      # Execute the main script
 ```
 
 ### Execution
 
 ```bash
-python3 a_maze_ing.py config.txt
+make run      # Execute the main script
+```
+
+### Debug
+
+```bash
+make debug    # Debug with pdb 
 ```
 
 ### Cleanup
 
 ```bash
 make clean    # Remove temporary files or caches
+```
+
+### Cleanup
+
+```bash
+make lint    # Runs static analysis flake8 and mypy
 ```
 
 ---
@@ -98,9 +109,17 @@ Alternatives considered: Prim's algorithm (more uniform, less winding) and Krusk
 ---
 
 ## Reusable Code
+The `mazegen` module is decoupled from the CLI entry point (`a_maze_ing.py`) and can be reused independently in other projects. It exposes maze generation as an importable component rather than tying it to this specific script.
 
+Key points:
 
+- **Seed-based & size-based reproducibility**: MazeGenerator class in maze_generator accepts a `seed`, `height`, `width`, ...  parameter. Passing the same seed always produces the identical maze layout, making results deterministic and easy to test, debug, or share.
 
+```python
+  from mazegen.maze_generator import MazeGenerator
+
+  maze = MazeGenerator(width=20, height=20 ...)
+```
 ---
 
 ## Team & Project Management
@@ -153,7 +172,7 @@ Alternatives considered: Prim's algorithm (more uniform, less winding) and Krusk
 
 - The maze was displayed by the output in hexdeximal form of the grid
 - The path solution was displayed by the string which represent the 
-sollution from entry to exit in the maze (EX: NSSSWWN...)
+sollution from entry to exit in the maze (EX: NSESWSWWN...)
 - We all use ASCII characters to display them, this can be improved also
 by using some graphical tools    
 ---
