@@ -7,15 +7,16 @@ from constance import DIRECTIONS, PATTERN
 # MazeGenerator class
 # -----------------------------------------------
 
+
 class MazeGenerator:
     """Initialize the maze statistics"""
     def __init__(
         self,
         width: int = 15,
         height: int = 15,
-        entry: tuple[int,int] = (0, 0),
-        exit: tuple[int,int] = (14, 14),
-        seed: tuple[int,int] = (1, 2),
+        entry: tuple[int, int] = (0, 0),
+        exit: tuple[int, int] = (14, 14),
+        seed: tuple[int, int] = (1, 2),
         perfect: bool = False
     ) -> None:
         self.width = width
@@ -84,10 +85,12 @@ class MazeGenerator:
                 neighbor_y = current_y + d_y
 
                 # Check if neighbor coordinate is valid
-                if (0 <= neighbor_x < self.width
-                and 0 <= neighbor_y < self.height
-                and (neighbor_x, neighbor_y) not in cells_pattern
-                and not self.visited[neighbor_y][neighbor_x]):
+                if (
+                    0 <= neighbor_x < self.width
+                    and 0 <= neighbor_y < self.height
+                    and (neighbor_x, neighbor_y) not in cells_pattern
+                    and not self.visited[neighbor_y][neighbor_x]
+                ):
 
                     # Carve wall between 2 cells
                     self.grid[current_y][current_x] &= ~cur
@@ -103,13 +106,12 @@ class MazeGenerator:
             if not moved:
                 stack.pop()
 
-    def get_maze(self) -> list[int]:
+    def get_maze(self) -> list[list[int]]:
         self.recursive_backtracking()
         return self.grid
 
 
-if __name__ == "__main__":
-    Maze = MazeGenerator(10, 10).get_maze()
-    for row in Maze:
-            print(''.join(format(c, 'X') for c in row))
-
+# if __name__ == "__main__":
+#     Maze = MazeGenerator(10, 10).get_maze()
+#     for row in Maze:
+#         print(''.join(format(c, 'X') for c in row))

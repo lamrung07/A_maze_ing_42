@@ -32,7 +32,7 @@ class ConfigParser:
                     # Skip empty and comment
                     if not line or line[0] == "#":
                         continue
-                    
+
                     # Partition the line with "="
                     key, _, value = line.partition("=")
 
@@ -50,12 +50,11 @@ class ConfigParser:
                     sys.exit(1)
 
         except OSError as e:
-            print (f"OS ERROR! {e}")
+            print(f"OS ERROR! {e}")
             sys.exit(1)
         except Exception as e:
             print(f"ERROR! {e}")
             sys.exit(1)
-
 
     def check_valid_data(self) -> None:
         """Validate and casting config data"""
@@ -72,15 +71,15 @@ class ConfigParser:
                 sys.exit(1)
             self.config[key] = int(val)
         except ValueError as e:
-                print(f"ERROR! {e}")
-                sys.exit(1)
-            
+            print(f"ERROR! {e}")
+            sys.exit(1)
+
         # 2.Check ENTRY AND EXIT values
         try:
             x, y = 0, 0
             width = self.config["WIDTH"]
             height = self.config["HEIGHT"]
-            
+
             # Check ENTRY value
             key, val = "ENTRY", self.config["ENTRY"]
             coordinates = val.split(',')
@@ -95,7 +94,7 @@ class ConfigParser:
                 print("ERROR! Invalid ENTRY input")
                 sys.exit(1)
             self.config[key] = (int(x), int(y))
-                    
+
             # Check EXIT value
             key, val = "EXIT", self.config["EXIT"]
             coordinates = val.split(',')
@@ -137,11 +136,10 @@ class ConfigParser:
                         self.config[key] = True
                     elif val == "False" or "0":
                         self.config[key] = False
-    
+
     def get_value(
         self,
         data_name: str
-        ) -> int | str | dict[str, int] | None:
+    ) -> int | str | dict[str, int] | None:
         """Get maze config data"""
         return self.config.get(data_name)
-

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-import sys
 from config_parser import ConfigParser
-from mazegen import MazeSolver, MazeGenerator
+from mazegen import MazeSolverBFS
 
 
 # ---------------------------------------
@@ -15,16 +14,15 @@ WIDTH = configuration.get_value("WIDTH")
 HEIGHT = configuration.get_value("HEIGHT")
 ENTRY = configuration.get_value("ENTRY")
 EXIT = configuration.get_value("EXIT")
+SEED = configuration.get_value("SEED")
 OUTPUT_FILE = configuration.get_value("OUTPUT_FILE")
 PERFECT = configuration.get_value("PERFECT")
-SEED = 0
-
 
 # ---------------------------------------
 # Generate and Solve Maze
 # ---------------------------------------
 
-Maze = MazeSolver(WIDTH, HEIGHT, ENTRY, EXIT)
+Maze = MazeSolverBFS(WIDTH, HEIGHT, ENTRY, EXIT)
 grid = Maze.maze
 Maze.solver_bfs()
 path = Maze.solution_path

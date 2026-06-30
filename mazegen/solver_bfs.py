@@ -9,16 +9,16 @@ class MazeSolverBFS:
         self,
         width: int = 10,
         height: int = 10,
-        entry = (0, 0),
-        exit = (9, 9)
-        ) -> None:
-        self.maze = MazeGenerator(width,height).get_maze()
+        entry=(0, 0),
+        exit=(9, 9)
+    ) -> None:
+        self.maze = MazeGenerator(width, height).get_maze()
         self.entry = entry
         self.exit = exit
         self.width = width
         self.height = height
         self.solution_path: list[str] = []
-    
+
     def solver_bfs(self):
         """
         Add path contain 'N','E','S','W' to self.solution_path
@@ -26,7 +26,7 @@ class MazeSolverBFS:
         """
         entry_x, entry_y = self.entry
         exit_x, exit_y = self.exit
-        queue = deque()
+        queue: deque[tuple[str, int, int]] = deque()
         queue.append(("", entry_x, entry_y))
         visited: set[tuple[int, int]] = {(entry_x, entry_y)}
         directions = OPEN_DIRS
@@ -48,16 +48,17 @@ class MazeSolverBFS:
                 neighbor_y = current_y + d_y
 
                 # Ingest neighbor cell if there is no wall
-                if (current_val & cur == 0
-                and (neighbor_x, neighbor_y) not in visited):
+                if (
+                    current_val & cur == 0
+                    and (neighbor_x, neighbor_y) not in visited
+                ):
                     queue.append((path + dir, neighbor_x, neighbor_y))
                     visited.add((neighbor_x, neighbor_y))
+
 
 if __name__ == "__main__":
     Maze = MazeSolverBFS()
     Maze.solver_bfs()
     for row in Maze.maze:
-            print(''.join(format(c, 'X') for c in row))
-    print (Maze.solution_path)
-
-
+        print(''.join(format(c, 'X') for c in row))
+    print(Maze.solution_path)

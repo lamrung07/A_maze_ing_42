@@ -1,31 +1,36 @@
 #!/usr/bin/env python3
-from maze_generator import MazeGenerator
-from collections import deque
-from constance import A_STAR_DIRS, OPEN_DIRS
+from .maze_generator import MazeGenerator
+from .constance import A_STAR_DIRS, OPEN_DIRS
+
 
 class MazeSolverA_star:
     def __init__(
         self,
         width: int = 10,
         height: int = 10,
-        entry = (0, 0),
-        exit = (9, 9)
-        ) -> None:
+        entry=(0, 0),
+        exit=(9, 9)
+    ) -> None:
         # self.maze: grid of int from 1-15
-        self.maze = MazeGenerator(width,height).get_maze()
+        self.maze = MazeGenerator(width, height).get_maze()
         self.entry = entry
         self.exit = exit
         self.width = width
         self.height = height
-        self.solution_path: str = ""
-    def find_direction(self, current: set[int, int], previous: set[int, int]) -> str:
+        self.solution_path: list[str] = []
+
+    def find_direction(
+        self,
+        current: tuple[int, int],
+        previous: tuple[int, int]
+    ) -> str:
         pre_directions = A_STAR_DIRS
         n_x = current[0] - previous[0]
         n_y = current[1] - previous[1]
-        move = pre_directions[(n_x, n_y)]
+        move: str = pre_directions[(n_x, n_y)]
         return move
 
-    def solver_a_star(self):
+    def solver_a_star(self) -> None:
         """
         Add path contain 'N','E','S','W' to self.solution_path
         which represent the shortest path from entry to exit
@@ -34,13 +39,14 @@ class MazeSolverA_star:
         exit_x, exit_y = self.exit
         entry = (entry_x, entry_y)
         exit = (exit_x, exit_y)
-        def h(current: set[int, int] , target: set[int, int]) -> int:
+
+        def h(current: tuple[int, int], target: tuple[int, int]) -> int:
             """Calculate Manhattan distance from current to target node"""
             return abs(current[0] - target[0]) + abs(current[1] - target[1])
         # open_list: a list of (f, g, position)
-        open_list: list[int, int, set[int, int]] = [(h(entry, exit), 0, entry)]
+        open_list: list[tuple[int, int, tuple[int, int]]] = [(h(entry, exit), 0, entry)]
         g_cost = {entry: 0}
-        came_from = {}
+        came_from: dict[tuple[int, int], tuple[int, int]] = {}
         directions = OPEN_DIRS
         visited: set[tuple[int, int]] = set()
         visited.add((entry_x, entry_y))
@@ -56,7 +62,8 @@ class MazeSolverA_star:
                     move = self.find_direction(current, previous)
                     path.append(move)
                     current = previous
-                return path[::-1]
+                self.solution_path = path[::-1]
+                return None
 
             # Check all open neighbor of current cell
             for dir, d_x, d_y, cur in directions:
@@ -65,19 +72,23 @@ class MazeSolverA_star:
                 neighbor_y = current[1] + d_y
                 neighbor = (neighbor_x, neighbor_y)
                 # Ingest neighbor cell if there is no wall
-                if (current_val & cur == 0
-                and (neighbor_x, neighbor_y) not in visited):
+                if (
+                    current_val & cur == 0
+                    and (neighbor_x, neighbor_y) not in visited
+                ):
                     new_g = g + 1
                     if new_g < g_cost.get(neighbor, float('inf')):
                         g_cost[neighbor] = new_g
                         came_from[neighbor] = current
                         f = new_g + h(neighbor, exit)
                         open_list.append((f, new_g, neighbor))
+        return None
 
-if __name__ == "__main__":
-    solver = MazeSolverA_star()
-    for row in solver.maze:
-        for cell in row:
-            print(f"{ cell }", end="")
-        print()
-    print(solver.solver_a_star())
+
+# if __name__ == "__main__":
+#     solver = MazeSolverA_star()
+#     for row in solver.maze:
+#         for cell in row:
+#             print(f"{ cell }", end="")
+#         print()
+#     print(solver.solver_a_star())
