@@ -10,8 +10,11 @@ ENTRY=1,1
 # Exit coordinates (inside the maze and != 42 pattern)
 EXIT=7,9
 
+# Seed to generates maze
+SEED=2,2
+
 # Output file name
-OUTPUT_FILE=maze.txt
+OUTPUT_FILE=output_maze.txt
 
 # Boolean value show the maze perfect or not
 PERFECT=True

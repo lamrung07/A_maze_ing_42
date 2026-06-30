@@ -15,6 +15,7 @@ class ConfigParser:
                 'HEIGHT':       None,
                 'ENTRY':        None,
                 'EXIT':         None,
+                'SEED':         None,
                 'OUTPUT_FILE':  None,
                 'PERFECT':      None,
         }
@@ -109,11 +110,27 @@ class ConfigParser:
                 print("ERROR! Invalid EXIT input")
                 sys.exit(1)
             self.config[key] = (int(x), int(y))
+
+            # 3. Check SEED value
+            key, val = "SEED", self.config["SEED"]
+            coordinates = val.split(',')
+            if len(coordinates) != 2:
+                print("ERROR! Invalid SEED input")
+                sys.exit(1)
+            x, y = int(coordinates[0]), int(coordinates[1])
+            if x < 0 or x >= width:
+                print("ERROR! Invalid SEED input")
+                sys.exit(1)
+            if y < 0 or y >= height:
+                print("ERROR! Invalid SEED input")
+                sys.exit(1)
+            self.config[key] = (int(x), int(y))
+
         except ValueError as e:
             print(f"ERROR! {e}")
             sys.exit(1)
 
-            # 3. Check PERFECT bool value
+            # 4. Check PERFECT bool value
             for key, val in self.config.items():
                 if key == "PERFECT":
                     if val == "True" or "1":

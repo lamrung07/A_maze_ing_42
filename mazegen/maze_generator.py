@@ -15,15 +15,15 @@ class MazeGenerator:
         height: int = 15,
         entry: tuple[int,int] = (0, 0),
         exit: tuple[int,int] = (14, 14),
-        perfect: bool = False,
-        seed: int = 0
+        seed: tuple[int,int] = (1, 2),
+        perfect: bool = False
     ) -> None:
         self.width = width
         self.height = height
         self.entry = entry
         self.exit = exit
-        self.perfect = perfect
         self.seed = seed
+        self.perfect = perfect
         self.grid = [[15] * self.width for _ in range(self.height)]
         self.visited = [[False] * self.width for _ in range(self.height)]
         self.solution_path: list[str] = []
@@ -65,6 +65,9 @@ class MazeGenerator:
         if not self.seed:
             current_x = random.randint(0, self.width - 1)
             current_y = random.randint(0, self.height - 1)
+        else:
+            current_x = self.seed[0]
+            current_y = self.seed[1]
         print(f"seed : {current_x, current_y}")
         stack = [(current_x, current_y)]
         self.visited[current_y][current_x] = True
@@ -105,8 +108,8 @@ class MazeGenerator:
         return self.grid
 
 
-# if __name__ == "__main__":
-#     Maze = MazeGenerator(10, 10).get_maze()
-#     for row in Maze:
-#             print(''.join(format(c, 'X') for c in row))
+if __name__ == "__main__":
+    Maze = MazeGenerator(10, 10).get_maze()
+    for row in Maze:
+            print(''.join(format(c, 'X') for c in row))
 

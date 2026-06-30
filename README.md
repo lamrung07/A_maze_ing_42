@@ -53,18 +53,23 @@ The program reads a `config.txt` configuration file with the following structure
 ```
 # A-Maze-ing config file
 
-width       = 25        # Number of columns (must be odd)
-height      = 15        # Number of rows (must be odd)
-start       = 0,0       # Entry point (col,row)
-end         = 24,14     # Exit point (col,row)
+width       = 25                # Number of columns (must be odd)
+height      = 15                # Number of rows (must be odd)
+entry       = 0,0               # Entry point (col,row)
+exit        = 24,14             # Exit point (col,row)
+seed        = 3,5               # Point where maze creation start (col, row)
+output_file = output_maze.txt   # Output file name
+perfect     = True              # Maze is perfect or not
 ```
 
 | Key         | Type    | Description                                 |
 |-------------|---------|---------------------------------------------|
 | `width`     | int     | Maze width in cells (should be odd)         |
 | `height`    | int     | Maze height in cells (should be odd)        |
-| `start`     | col,row | Coordinates of the maze entrance            |
-| `end`       | col,row | Coordinates of the maze exit                |
+| `start`     |(int,int)| Coordinates of the maze entrance            |
+| `exit`      |(int,int)| Coordinates of the maze exit                |
+| `seed`      |(int,int)| Coordinates of the maze seed                |
+| `perfect`   | boolean | Maze perfection                             |
 
 ---
 
@@ -74,7 +79,7 @@ end         = 24,14     # Exit point (col,row)
 
 ### How it works
 
-Starting from a random cell, the algorithm:
+Starting from a random cell (or a seed), the algorithm:
 1. Marks the current cell as visited.
 2. Randomly picks an unvisited neighbouring cell.
 3. Removes the wall between them and moves to that neighbour.
@@ -123,7 +128,16 @@ Alternatives considered: Prim's algorithm (more uniform, less winding) and Krusk
 
 ### What worked well
 
+- The maze generation algorithm works well and produces correct, reliable results.
+- The core algorithms are solid and perform as expected.
+- Teamwork was effective, with good communication throughout the project.
+- The project workflow is well structured, making collaboration easier.
+
 ### What could be improved
+
+- The display/visualization part of the project needs improvement.
+- The maze solving algorithm could be optimized or refined further.
+- Gitflow was not well utilized.
 
 ### Tools used
 
@@ -137,13 +151,26 @@ Alternatives considered: Prim's algorithm (more uniform, less winding) and Krusk
 
 ### Display Options
 
+- The maze was displayed by the output in hexdeximal form of the grid
+- The path solution was displayed by the string which represent the 
+sollution from entry to exit in the maze (EX: NSSSWWN...)
+- We all use ASCII characters to display them, this can be improved also
+by using some graphical tools    
 ---
 
 ## Resources
 
 ### Documentation & References
-
+- Geekforgeek & W3Schools: Python systax
+- Artificial Intelligence Search Problem: Solve Maze using Breadth First Search (BFS) Algorithm (Medium, Luthfisauqi)
+- Exploring the Depths: Solving Mazes with A* Search Algorithm (Medium, Matteo Tosato)
+- Youtube: freeCodeCamp, Tech with Tim, Linh Ei 
+- Github: krameraad, Ceren Kurt
 
 ### AI Usage
 
 AI (Claude) was used during this project for the following tasks:
+- Structure and design the overall project
+- Design workflow and tasks to accomplish the project
+- Create test and fix bugs during coding part
+- Find related ressources
